@@ -1,0 +1,6 @@
+@import './Login.css';
+
+/* Any signup specific overrides */
+.auth-form-wrap--wide {
+    max-width: 500px;
+}

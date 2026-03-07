@@ -1,0 +1,111 @@
+/* === ABOUT PAGE - TWO COLOR THEME === */
+.about-page {
+    background-color: #ffffff;
+    color: var(--text-primary);
+}
+
+.about-page .section {
+    padding: 60px 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-content h2 {
+    color: #4682B4;
+}
+
+.about-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.image-stack {
+    position: relative;
+    padding: 20px;
+}
+
+.stack-img {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid #e2e8f4;
+}
+
+.section-alt {
+    background-color: #ffffff; /* Redefined to white */
+    border-top: 1px solid #f1f5fd;
+    border-bottom: 1px solid #f1f5fd;
+}
+
+.mission-vision-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    padding: 32px;
+}
+
+.goal-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f4 !important;
+    padding: 40px;
+    text-align: center;
+}
+
+.goal-card:hover {
+    border-color: #4682B4 !important;
+    transition: all 0.3s ease;
+}
+
+.goal-card h3 {
+    color: #4682B4;
+    margin-bottom: 16px;
+}
+
+.goal-icon {
+    color: #4682B4;
+    margin-bottom: 24px;
+}
+
+.values-section {
+    background-color: #ffffff !important;
+}
+
+.value-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 28px 24px;
+    background: #ffffff;
+    border: 1px solid #e2e8f4;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.value-item:hover {
+    border-color: #4682B4;
+    box-shadow: var(--shadow-md);
+}
+
+.value-item h4 {
+    color: #4682B4;
+    margin-bottom: 8px;
+}
+
+.value-icon {
+    color: #4682B4;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 968px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+    }
+}
