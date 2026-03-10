@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { CartProvider } from './context/CartContext'
+import { OrderProvider } from './context/OrderContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -15,17 +16,23 @@ import Cart from './pages/Cart'
 import Booking from './pages/Booking'
 import AdminDashboard from './pages/AdminDashboard'
 import EmployeeDashboard from './pages/EmployeeDashboard'
+import EmployeeLogin from './pages/EmployeeLogin'
 import OrderTracking from './pages/OrderTracking'
 import CustomerDashboard from './pages/CustomerDashboard'
 
+import AdminLogin from './pages/AdminLogin'
+
 function AppContent() {
     const location = useLocation()
-    const isAuthPage = ['/login', '/signup'].includes(location.pathname)
+    const isDashboardPage = [
+        '/login', '/signup', '/employee-dashboard', '/admin', '/employee-login',
+        '/admin-login', '/admin-dashboard'
+    ].some(path => location.pathname === path || location.pathname.startsWith(path))
 
     return (
         <div className="app">
-            {!isAuthPage && <Header />}
-            <main>
+            {!isDashboardPage && <Header />}
+            <main className={isDashboardPage ? 'main--dashboard' : ''}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/products" element={<Products />} />
@@ -37,13 +44,22 @@ function AppContent() {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/booking" element={<Booking />} />
-                    <Route path="/admin" element={<AdminDashboard />} />
-                    <Route path="/employee" element={<EmployeeDashboard />} />
+                    <Route path="/admin-login" element={<AdminLogin />} />
+                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="/admin/cameras" element={<AdminDashboard />} />
+                    <Route path="/admin/employees" element={<AdminDashboard />} />
+                    <Route path="/admin/customers" element={<AdminDashboard />} />
+                    <Route path="/admin/reports" element={<AdminDashboard />} />
+                    <Route path="/admin/attendance" element={<AdminDashboard />} />
+                    <Route path="/admin/settings" element={<AdminDashboard />} />
+
+                    <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+                    <Route path="/employee-login" element={<EmployeeLogin />} />
                     <Route path="/tracking" element={<OrderTracking />} />
                     <Route path="/dashboard" element={<CustomerDashboard />} />
                 </Routes>
             </main>
-            {!isAuthPage && <Footer />}
+            {!isDashboardPage && <Footer />}
         </div>
     )
 }
@@ -53,7 +69,9 @@ function App() {
         <Router>
             <AuthProvider>
                 <CartProvider>
-                    <AppContent />
+                    <OrderProvider>
+                        <AppContent />
+                    </OrderProvider>
                 </CartProvider>
             </AuthProvider>
         </Router>

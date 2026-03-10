@@ -72,12 +72,12 @@
     gap: 8px;
     transition: all 0.3s ease;
     border: none;
-    box-shadow: 0 4px 14px rgba(70, 130, 180, 0.2);
+    border: 1px solid rgba(70, 130, 180, 0.2);
 }
 
 .hero-btn-primary:hover {
     background-color: #36648b;
-    box-shadow: 0 8px 20px rgba(70, 130, 180, 0.3);
+    box-shadow: none;
 }
 
 .hero-btn-secondary {
@@ -246,9 +246,6 @@
     background: #ffffff;
 }
 
-.service-card:hover {
-    border-color: #4682B4;
-}
 
 .service-card__icon {
     width: 64px;

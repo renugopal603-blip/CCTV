@@ -298,14 +298,10 @@
     background: #4A89BD;
     color: white;
     border: none;
-    box-shadow: 0 4px 12px rgba(74, 137, 189, 0.2);
+    border: 1px solid rgba(74, 137, 189, 0.2);
 }
 
-.pd-actions .btn-primary:hover,
-.pd-actions .btn-accent:hover {
-    background: #36648b;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(74, 137, 189, 0.3);
+    box-shadow: none;
 }
 
 .pd-trust {

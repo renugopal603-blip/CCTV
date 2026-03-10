@@ -1,24 +1,31 @@
 import { useState } from 'react'
 import { FiMinus, FiPlus, FiTrash2, FiShoppingBag, FiArrowRight } from 'react-icons/fi'
 import { useCart } from '../context/CartContext'
+import { useOrders } from '../context/OrderContext'
+import { useAuth } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 export default function Cart() {
     const { cartItems, removeFromCart, updateQuantity, clearCart, cartTotal } = useCart()
+    const { placeOrder } = useOrders()
+    const { user } = useAuth()
     const [ordered, setOrdered] = useState(false)
 
     const handleOrder = () => {
-        const orders = JSON.parse(localStorage.getItem('sv_orders') || '[]')
-        const order = {
-            id: `ORD${Date.now()}`,
-            items: cartItems,
-            total: cartTotal,
-            status: 'Confirmed',
-            date: new Date().toISOString(),
+        if (!user) {
+            toast.warning('Please login to place an order')
+            return
         }
-        orders.push(order)
-        localStorage.setItem('sv_orders', JSON.stringify(orders))
+
+        const orderData = {
+            customerName: user.name,
+            customerEmail: user.email,
+            items: cartItems,
+            total: cartTotal + (cartTotal >= 5000 ? 0 : 499),
+        }
+
+        placeOrder(orderData)
         clearCart()
         setOrdered(true)
         toast.success('Order placed successfully! 🎉')

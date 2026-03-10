@@ -22,7 +22,7 @@
 
 .dashboard-id {
     background: #f1f5f9;
-    padding: 8px 16px;
+    padding: 10px 20px;
     border-radius: 0;
     font-size: 0.9rem;
     font-weight: 600;
@@ -169,9 +169,7 @@
 }
 
 .action-card:hover {
-    border-color: #4682B4;
     box-shadow: 0 4px 12px rgba(70, 130, 180, 0.1);
-    transform: translateX(4px);
 }
 
 .action-icon {

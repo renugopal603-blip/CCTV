@@ -44,9 +44,8 @@ export default function Signup() {
 
     return (
         <div className="auth-page">
-            {/* Left side: branding/benefits */}
             <aside className="auth-aside">
-                <div className="auth-aside__content">
+                <div className="auth-aside__content animate-in">
                     <h1 className="auth-aside__title">Join SecureVision Today.</h1>
                     <p className="auth-aside__desc">Create an account to start your journey towards a safer, smarter property monitoring experience.</p>
                     
@@ -56,10 +55,10 @@ export default function Signup() {
                             'Exclusive Member Pricing',
                             'Direct Access to Tech Experts',
                             'Consolidated Billing Dashboard'
-                        ].map(text => (
-                            <div key={text} className="auth-benefit">
+                        ].map((text, i) => (
+                            <div key={text} className="auth-benefit" style={{ animationDelay: `${0.1 * (i + 1)}s` }}>
                                 <div className="auth-benefit__icon">
-                                    <FiCheck size={20} />
+                                    <FiCheck size={18} />
                                 </div>
                                 <span className="auth-benefit__text">{text}</span>
                             </div>
@@ -68,9 +67,8 @@ export default function Signup() {
                 </div>
             </aside>
 
-            {/* Right side: form */}
             <main className="auth-main">
-                <div className="auth-form-wrap auth-form-wrap--wide">
+                <div className="auth-form-wrap animate-in">
                     <div className="auth-header">
                         <Link to="/" className="auth-logo">
                             SECURE<span>VISION</span>
@@ -166,7 +164,7 @@ export default function Signup() {
                         </div>
 
                         <button type="submit" className="auth-submit-btn" disabled={loading}>
-                            {loading ? 'Creating Account...' : 'Sign Up'}
+                            {loading ? 'Establishing Account...' : 'Sign Up Now'}
                         </button>
                     </form>
 

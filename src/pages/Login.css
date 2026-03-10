@@ -161,7 +161,7 @@
 .auth-input:focus {
     border-color: #4682B4;
     background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(70, 130, 180, 0.1);
+    box-shadow: none;
     outline: none;
 }
 

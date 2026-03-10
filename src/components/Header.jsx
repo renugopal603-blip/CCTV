@@ -90,11 +90,6 @@ export default function Header() {
                                             <FiSettings size={15} /> Admin Dashboard
                                         </Link>
                                     )}
-                                    {user.role === 'employee' && (
-                                        <Link to="/employee" className="user-dropdown__item" onClick={() => setUserMenuOpen(false)}>
-                                            <FiSettings size={15} /> Employee Dashboard
-                                        </Link>
-                                    )}
                                     {user.role === 'customer' && (
                                         <Link to="/dashboard" className="user-dropdown__item" onClick={() => setUserMenuOpen(false)}>
                                             <FiUser size={15} /> My Dashboard

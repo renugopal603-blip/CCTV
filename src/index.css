@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
   /* Color Palette - Strict Two-Color Theme */
   --primary: #4682B4;
@@ -94,6 +96,10 @@ ul {
 main {
   flex: 1;
   padding-top: 70px;
+}
+
+main.main--dashboard {
+  padding-top: 0;
 }
 
 /* === TYPOGRAPHY === */
@@ -256,10 +262,6 @@ p {
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
-}
-
-.card:hover {
-  border-color: var(--primary-light);
 }
 
 /* === BADGE === */
@@ -725,10 +727,6 @@ p {
   transition: box-shadow 0.3s ease;
   border: 1px solid #e7e7e7;
   height: 100%;
-}
-
-.amazon-card:hover {
-  border-color: rgba(74, 137, 189, 0.3);
 }
 
 .amazon-card__image {

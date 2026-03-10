@@ -148,7 +148,7 @@ export default function Products() {
                     </aside>
 
                     {/* Main Content Area */}
-                    <main className="products-main">
+                    <div className="products-main">
                         {/* Top Bar (Search + Sort) */}
                         <div className="products-top-bar">
                             <div className="search-box">
@@ -249,7 +249,7 @@ export default function Products() {
                                 ))}
                             </div>
                         )}
-                    </main>
+                    </div>
                 </div>
             </div>
             {showMobileFilters && <div className="sidebar-overlay" onClick={() => setShowMobileFilters(false)}></div>}

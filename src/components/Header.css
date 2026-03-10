@@ -4,7 +4,8 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: #4682B4; /* Light Steel Blue */
+    background: #4682B4;
+    /* Light Steel Blue */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
@@ -238,10 +239,15 @@
 }
 
 @media (max-width: 1024px) {
-    .header__nav, .auth-btns, .header__book-btn {
+
+    .header__nav,
+    .auth-btns,
+    .header__book-btn {
         display: none;
     }
-    .header__hamburger, .mobile-menu {
+
+    .header__hamburger,
+    .mobile-menu {
         display: flex;
     }
 }
@@ -336,4 +342,3 @@
     background: #fef2f2;
     color: #dc2626;
 }
-

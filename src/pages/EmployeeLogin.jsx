@@ -1,90 +1,91 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { FiMail, FiLock, FiEye, FiEyeOff, FiCheck } from 'react-icons/fi'
+import { useNavigate, Navigate } from 'react-router-dom'
+import { FiMail, FiLock, FiEye, FiEyeOff, FiBriefcase, FiTool, FiShield } from 'react-icons/fi'
 import { useAuth } from '../context/AuthContext'
 import { toast } from 'react-toastify'
 import './Login.css'
 
-// Demo accounts for testing
-const DEMO_USERS = [
+// Employees only
+const EMPLOYEES = [
     { id: 'ADMIN01', email: 'admin@securevision.in', password: 'admin123', name: 'Admin User', role: 'admin' },
     { id: 'EMP101', email: 'employee@securevision.in', password: 'emp123', name: 'Tech Employee', role: 'employee' },
-    { id: 'DEMO01', email: 'demo@securevision.in', password: 'demo123', name: 'Demo Customer', role: 'customer' },
+    { id: 'EMP102', email: 'renu@gmail.com', password: '123123', name: 'Renugopal', role: 'employee' },
 ]
 
-export default function Login() {
+export default function EmployeeLogin() {
     const [form, setForm] = useState({ email: '', password: '' })
     const [showPass, setShowPass] = useState(false)
     const [loading, setLoading] = useState(false)
-    const { login } = useAuth()
+    const { user, login } = useAuth()
     const navigate = useNavigate()
+
+    // Redirect if already logged in as employee
+    if (user && (user.role === 'employee' || user.role === 'admin')) {
+        return <Navigate to="/employee-dashboard" />
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
-        await new Promise(r => setTimeout(r, 800))
+        await new Promise(r => setTimeout(r, 1000))
 
-        const users = JSON.parse(localStorage.getItem('sv_users') || '[]')
-        const allUsers = [...DEMO_USERS, ...users]
-        const found = allUsers.find(u => u.email.toLowerCase() === form.email.toLowerCase() && u.password === form.password)
+        const emailInput = form.email.trim().toLowerCase()
+        const passInput = form.password.trim()
+
+        const found = EMPLOYEES.find(u => u.email.toLowerCase() === emailInput && u.password === passInput)
 
         if (found) {
             login({ ...found, password: undefined })
-            toast.success(`Welcome back, ${found.name}!`)
-            if (found.role === 'admin') navigate('/admin')
-            else if (found.role === 'employee') navigate('/employee-dashboard')
-            else navigate('/dashboard')
+            toast.success(`Access Granted. Welcome, ${found.name}.`)
+            navigate('/employee-dashboard')
         } else {
-            toast.error('Invalid email or password')
+            toast.error('Authentication Failed. Invalid credentials.')
         }
         setLoading(false)
     }
 
     return (
         <div className="auth-page">
-            {/* Left side: branding/benefits */}
-            <aside className="auth-aside">
+            <aside className="auth-aside" style={{ backgroundColor: '#4682B4' }}>
                 <div className="auth-aside__content">
-                    <h1 className="auth-aside__title">Secure Your World With Vision.</h1>
-                    <p className="auth-aside__desc">Access your dashboard to manage your security systems, view live feeds, and track your service requests.</p>
+                    <h1 className="auth-aside__title">Technician Service Portal</h1>
+                    <p className="auth-aside__desc">SecureVision Employee Access Terminal. Log in to manage your service requests and daily operations.</p>
                     
                     <div className="auth-benefits">
                         {[
-                            'Real-time Multi-camera Viewing',
-                            'Automated AMC Status Alerts',
-                            'Instant Technical Support Access',
-                            'Simplified Installation Booking'
-                        ].map(text => (
-                            <div key={text} className="auth-benefit">
-                                <div className="auth-benefit__icon">
-                                    <FiCheck size={20} />
+                            { icon: <FiBriefcase />, text: 'Job Management System' },
+                            { icon: <FiTool />, text: 'Field Service Automation' },
+                            { icon: <FiShield />, text: 'Secure Infrastructure' }
+                        ].map((item, i) => (
+                            <div key={i} className="auth-benefit">
+                                <div className="auth-benefit__icon" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+                                    {item.icon}
                                 </div>
-                                <span className="auth-benefit__text">{text}</span>
+                                <span className="auth-benefit__text">{item.text}</span>
                             </div>
                         ))}
                     </div>
                 </div>
             </aside>
 
-            {/* Right side: form */}
             <main className="auth-main">
                 <div className="auth-form-wrap">
                     <div className="auth-header">
-                        <Link to="/" className="auth-logo">
+                        <div className="auth-logo" style={{ color: '#4682B4' }}>
                             SECURE<span>VISION</span>
-                        </Link>
-                        <h2 className="auth-title">Welcome Back</h2>
-                        <p className="auth-subtitle">Enter your credentials to access your account</p>
+                        </div>
+                        <h2 className="auth-title">Employee Sign In</h2>
+                        <p className="auth-subtitle">Authorized Personnel Only</p>
                     </div>
 
                     <form onSubmit={handleSubmit}>
                         <div className="auth-input-group">
-                            <label className="auth-input-label">Email Address</label>
+                            <label className="auth-input-label">Corporate Email</label>
                             <div className="auth-input-wrapper">
                                 <input 
                                     className="auth-input" 
                                     type="email" 
-                                    placeholder="your@email.com" 
+                                    placeholder="name@securevision.in" 
                                     value={form.email}
                                     onChange={e => setForm(f => ({...f, email: e.target.value}))}
                                     required
@@ -94,7 +95,7 @@ export default function Login() {
                         </div>
 
                         <div className="auth-input-group">
-                            <label className="auth-input-label">Password</label>
+                            <label className="auth-input-label">Secure Password</label>
                             <div className="auth-input-wrapper">
                                 <input 
                                     className="auth-input" 
@@ -109,20 +110,24 @@ export default function Login() {
                                     type="button" 
                                     className="auth-toggle-pass"
                                     onClick={() => setShowPass(!showPass)}
-                                    aria-label={showPass ? 'Hide password' : 'Show password'}
                                 >
                                     {showPass ? <FiEyeOff size={18} /> : <FiEye size={18} />}
                                 </button>
                             </div>
                         </div>
 
-                        <button type="submit" className="auth-submit-btn" disabled={loading}>
-                            {loading ? 'Signing in...' : 'Sign In'}
+                        <button 
+                            type="submit" 
+                            className="auth-submit-btn" 
+                            style={{ backgroundColor: '#4682B4' }}
+                            disabled={loading}
+                        >
+                            {loading ? 'Authenticating...' : 'Establish Connection'}
                         </button>
                     </form>
 
-                    <p className="auth-footer">
-                        Don't have an account? <Link to="/signup" className="auth-link">Create an account</Link>
+                    <p className="auth-footer" style={{ fontSize: '0.8rem' }}>
+                        Locked Terminal • IP Logged • SecureVision Security Systems
                     </p>
                 </div>
             </main>
